@@ -14,8 +14,6 @@ jobs:
       DEVICE_TREE_BRANCH: fox_12.1 
       DEVICE_PATH: device/xiaomi/marble 
       DEVICE_NAME: marble 
-      VENDOR_TREE: https://github.com/AOSP-Devices/vendor_xiaomi_marble # <--- GANTI LINK VENDOR
-      VENDOR_BRANCH: 12.1 
       MANIFEST_BRANCH: 12.1
       LDCHECK: system/bin/hwservicemanager
     permissions:
@@ -47,11 +45,12 @@ jobs:
         cd sync
         ./orangefox_sync.sh --branch ${{ env.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
 
-    - name: Clone Device Tree + Vendor + Inject Kernel
+    - name: Clone Device Tree + Inject Kernel
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
+        # Cuma clone device doang, vendor dihapus
         git clone ${{ env.DEVICE_TREE }} -b ${{ env.DEVICE_TREE_BRANCH }} ./${{ env.DEVICE_PATH }}
-        git clone ${{ env.VENDOR_TREE }} -b ${{ env.VENDOR_BRANCH }} ./vendor/xiaomi/marble # <--- INI YG DIGANTI
+        # Inject Kernel X688C
         cp ${GITHUB_WORKSPACE}/boot.img ./${{ env.DEVICE_PATH }}/kernel
 
     - name: Build OrangeFox
