@@ -10,12 +10,12 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       KERNEL_URL: https://drive.google.com/uc?export=download&id=1WyIQgVADu5zF8MD6zmeblOOnReoGJxqS # BOOT.IMG V481 KAMU
-      DEVICE_TREE: https://github.com/kinguser981/android_device_xiaomi_marble-OFRP # TREE MARBLE
-      DEVICE_TREE_BRANCH: fox_12.1 # BRANCH MARBLE
-      DEVICE_PATH: device/xiaomi/marble # PATH MARBLE
-      DEVICE_NAME: marble # NAMA MARBLE
-      VENDOR_TREE: https://github.com/kinguser981/vendor_xiaomi_marble # VENDOR MARBLE
-      VENDOR_BRANCH: 12.1 # BRANCH VENDOR
+      DEVICE_TREE: https://github.com/kinguser981/android_device_xiaomi_marble-OFRP 
+      DEVICE_TREE_BRANCH: fox_12.1 
+      DEVICE_PATH: device/xiaomi/marble 
+      DEVICE_NAME: marble 
+      VENDOR_TREE: https://github.com/AOSP-Devices/vendor_xiaomi_marble # <--- GANTI LINK VENDOR
+      VENDOR_BRANCH: 12.1 
       MANIFEST_BRANCH: 12.1
       LDCHECK: system/bin/hwservicemanager
     permissions:
@@ -50,11 +50,8 @@ jobs:
     - name: Clone Device Tree + Vendor + Inject Kernel
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
-        # Clone Device Tree
         git clone ${{ env.DEVICE_TREE }} -b ${{ env.DEVICE_TREE_BRANCH }} ./${{ env.DEVICE_PATH }}
-        # Clone Vendor [INI PENTING BIAR NGGAK ERROR 1]
-        git clone ${{ env.VENDOR_TREE }} -b ${{ env.VENDOR_BRANCH }} ./vendor/xiaomi/marble
-        # Inject Kernel X688C
+        git clone ${{ env.VENDOR_TREE }} -b ${{ env.VENDOR_BRANCH }} ./vendor/xiaomi/marble # <--- INI YG DIGANTI
         cp ${GITHUB_WORKSPACE}/boot.img ./${{ env.DEVICE_PATH }}/kernel
 
     - name: Build OrangeFox
