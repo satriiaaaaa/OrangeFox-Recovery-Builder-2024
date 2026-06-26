@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      KERNEL_URL: https://drive.google.com/uc?export=download&id=1WyIQgVADu5zF8MD6zmeblOOnReoGJxqS # BOOT.IMG V481 KAMU
-      DEVICE_TREE: https://github.com/kinguser981/android_device_xiaomi_marble-OFRP # <--- TREE MARBLE
-      DEVICE_TREE_BRANCH: fox_12.1 # <--- BRANCH MARBLE
-      DEVICE_PATH: device/xiaomi/marble # <--- PATH MARBLE
-      DEVICE_NAME: marble # <--- NAMA MARBLE
+      KERNEL_URL: https://drive.google.com/uc?export=download&id=1WyIQgVADu5zF8MD6zmeblOOnReoGJxqS # KERNEL V481 KAMU
+      DEVICE_TREE: https://github.com/TWRP-X688C/twrp_device_infinix_x688c # <--- GANTI INI
+      DEVICE_TREE_BRANCH: android-12.1 # <--- GANTI INI
+      DEVICE_PATH: device/infinix/x688c # <--- GANTI INI
+      DEVICE_NAME: x688c # <--- GANTI INI
       MANIFEST_BRANCH: 12.1
       LDCHECK: system/bin/hwservicemanager
     permissions:
@@ -55,7 +55,7 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ env.MANIFEST_BRANCH }}
         source build/envsetup.sh
-        lunch twrp_${{ env.DEVICE_NAME }}-eng # jadi twrp_marble-eng
+        lunch twrp_${{ env.DEVICE_NAME }}-eng # jadi twrp_x688c-eng
         mka recoveryimage
 
     - name: Upload
